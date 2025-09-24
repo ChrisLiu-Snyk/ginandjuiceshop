@@ -21,14 +21,14 @@ jobs:
           # Install Probely CLI
           pip install probely
           # Test probely GET TARGETS
-          probely targets get --api-key ${{ secrets.PROBELY_API_KEY }}
+          probely targets get --api-key ${{ secrets.DAST_API_KEY }}
       
       # Step 2: Start Scan
       - name: Start Scan
         run: |
           for i in {1..20}; do
             echo "-----------------------------------"
-            SCAN_ID=$(probely targets start-scan ${{ vars.TARGET_ID }} -o IDS_ONLY --api-key ${{ secrets.PROBELY_API_KEY }})
+            SCAN_ID=$(probely targets start-scan ${{ vars.TARGET_ID }} -o IDS_ONLY --api-key ${{ secrets.DAST_API_KEY }})
             echo ${SCAN_ID}
             if [ -f ${SCAN_ID} ]; then
               echo "Scan didn't start... Retry start-scan"
